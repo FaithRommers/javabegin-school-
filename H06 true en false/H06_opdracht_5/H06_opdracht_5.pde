@@ -1,13 +1,10 @@
-Boolean  lopen = true;
-Boolean rennen = false;
+int cijfer = 7;
+boolean diploma = false ;
 
-if(lopen == true || rennen == true){
-
+if (cijfer == 7 && cijfer >= 5.5 && cijfer <=10){
+  diploma = true ;
 }
-Boolean springen = false;
-Boolean hardlopen = true;
 
-if(springen == true && hardlopen == true){
-
+if(diploma){
+println("gefeliciteerd");
 }
-println();
