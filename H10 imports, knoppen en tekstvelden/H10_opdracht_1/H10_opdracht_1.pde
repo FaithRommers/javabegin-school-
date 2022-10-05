@@ -30,12 +30,12 @@ void setup() {
 void draw() {
 }
 
-void knop (){
+void Knop (){
  println("helaas fout!");
  
  }
    
-void knop2(){
+void Knop2(){
   println("goed gedaan!");
 }
  
