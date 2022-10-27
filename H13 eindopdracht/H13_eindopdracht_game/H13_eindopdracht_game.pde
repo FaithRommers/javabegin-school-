@@ -9,12 +9,16 @@
 // 2: Game-over Screen
 
 int gameScreen = 0;
-
+int ballX, ballY;
+int ballSize = 20;
+int ballColor = color(0);
 
 /*********  SETUP BLOCK  *********/
 
 void setup(){
   size(500,500);
+  ballX = width/4;
+  ballY = height/5;
 }
 
 
@@ -44,9 +48,15 @@ void initScreen() {
 }
 void gameScreen() {
   // codes of game screen
+  background(255);
+  drawBall();
 }
 void gameOverScreen() {
   // codes for game over screen
+}
+void drawBall(){
+  fill(ballColor);
+  ellipse(ballX, ballY, ballSize, ballSize);
 }
 
 
