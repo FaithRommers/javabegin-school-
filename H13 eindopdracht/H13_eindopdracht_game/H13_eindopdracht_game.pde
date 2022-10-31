@@ -12,6 +12,8 @@ int gameScreen = 0;
 int ballX, ballY;
 int ballSize = 20;
 int ballColor = color(0);
+float gravity = 1;
+float ballSpeedVert = 0;
 
 /*********  SETUP BLOCK  *********/
 
@@ -50,6 +52,8 @@ void gameScreen() {
   // codes of game screen
   background(255);
   drawBall();
+  applyGravity();
+  keepInScreen();
 }
 void gameOverScreen() {
   // codes for game over screen
@@ -58,6 +62,29 @@ void drawBall(){
   fill(ballColor);
   ellipse(ballX, ballY, ballSize, ballSize);
 }
+void applyGravity(){
+ballSpeedVert+= gravity;
+ballY += ballSpeedVert;
+}
+void makeBounceBottom(int surface) {
+  ballY = surface-(ballSize/2);
+  ballSpeedVert *= -1;
+}
+void makeBounceTop(int surface){
+  ballY = surface+(ballSize/2);
+  ballSpeedVert*= -1;
+}
+// keep the ball in the screen
+void keepInScreen(){
+  // ball hits floor
+  if (ballY + (ballSize/2) > height) {
+    makeBounceBottom(height);
+  }
+  // ball hits ceiling
+  if (ballY - (ballSize/2) < 0){
+    makeBounceTop(0);
+  }
+}  
 
 
 
