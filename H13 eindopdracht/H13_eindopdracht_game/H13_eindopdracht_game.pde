@@ -14,6 +14,8 @@ int ballSize = 20;
 int ballColor = color(0);
 float gravity = 1;
 float ballSpeedVert = 0;
+float airfriction = 0.0001;
+float friction = 0.1;
 
 /*********  SETUP BLOCK  *********/
 
