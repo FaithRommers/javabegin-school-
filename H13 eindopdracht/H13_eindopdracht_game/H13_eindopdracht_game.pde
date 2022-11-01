@@ -67,7 +67,7 @@ ballSpeedVert+= gravity;
 ballY += ballSpeedVert;
 }
 void makeBounceBottom(int surface) {
-  ballY = surface-(ballSize/2);
+  ballY = surface-(ballSize/2); 
   ballSpeedVert *= -1;
 }
 void makeBounceTop(int surface){
