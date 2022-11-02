@@ -20,6 +20,8 @@ color racketColor = color(0);
 float racketWidth = 100;
 float racketHeight = 10;
 int RacketBounceRate = 20;
+// we will start at 0, but it wil start at 10 for testing
+float ballSpeedHorizon = 10;
 
 /*********  SETUP BLOCK  *********/
 
@@ -60,6 +62,7 @@ void gameScreen() {
   drawBall();
   drawRacket ();
   applyGravity();
+  applyHorizontalSpeed();
   keepInScreen();
   watchRacketBounce();
 }
@@ -95,6 +98,12 @@ void keepInScreen(){
   if (ballY - (ballSize/2) < 0){
     makeBounceTop(0);
   }
+  if (ballX - (ballSize/2) < 0){
+    makeBounceLeft(0);
+  }
+  if (ballX - (ballSize/2) > width){
+    makeBounceRight(width);
+  }
 }  
 void drawRacket(){
   fill(racketColor);
@@ -113,6 +122,27 @@ void watchRacketBounce() {
       }
     }
   }
+
+        
+      if ((ballX+(ballSize/2) > mouseX - (racketWidth/2)) && (ballX - (ballSize/2) < mouseX + (racketWidth/2))) {
+         if (dist(ballX, ballY, ballX, mouseY)<=(ballSize/2) + abs(overhead)) {
+             ballSpeedHorizon = (ballX - mouseX)/5;
+         }
+      }
+   }
+void applyHorizontalSpeed() {
+  ballX += ballSpeedHorizon;
+  ballSpeedHorizon -= (ballSpeedHorizon * airfriction);
+}
+void makeBounceLeft(int surface){
+  ballX = surface+(ballSize/2);
+  ballSpeedHorizon *= -1;
+  ballSpeedHorizon -= (ballSpeedHorizon * friction);
+}
+void makeBounceRight(int surface){
+  ballX = surface - (ballSize/2);
+  ballSpeedHorizon *= -1;
+  ballSpeedHorizon -= (ballSpeedHorizon * friction);
 }
 
 
