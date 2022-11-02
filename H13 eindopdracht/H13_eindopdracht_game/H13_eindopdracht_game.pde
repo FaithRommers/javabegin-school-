@@ -16,6 +16,10 @@ float gravity = 1;
 float ballSpeedVert = 0;
 float airfriction = 0.0001;
 float friction = 0.1;
+color racketColor = color(0);
+float racketWidth = 100;
+float racketHeight = 10;
+int RacketBounceRate = 20;
 
 /*********  SETUP BLOCK  *********/
 
@@ -54,8 +58,10 @@ void gameScreen() {
   // codes of game screen
   background(255);
   drawBall();
+  drawRacket ();
   applyGravity();
   keepInScreen();
+  watchRacketBounce();
 }
 void gameOverScreen() {
   // codes for game over screen
@@ -67,14 +73,17 @@ void drawBall(){
 void applyGravity(){
 ballSpeedVert+= gravity;
 ballY += ballSpeedVert;
+ballSpeedVert -= (ballSpeedVert * airfriction);
 }
 void makeBounceBottom(int surface) {
   ballY = surface-(ballSize/2); 
   ballSpeedVert *= -1;
+  ballSpeedVert -= (ballSpeedVert * friction);
 }
 void makeBounceTop(int surface){
   ballY = surface+(ballSize/2);
   ballSpeedVert*= -1;
+  ballSpeedVert -= (ballSpeedVert * friction);
 }
 // keep the ball in the screen
 void keepInScreen(){
@@ -87,6 +96,24 @@ void keepInScreen(){
     makeBounceTop(0);
   }
 }  
+void drawRacket(){
+  fill(racketColor);
+  rectMode(CENTER);
+  rect(mouseX, mouseY, racketWidth, racketHeight);
+}
+void watchRacketBounce() {
+  float overhead = mouseY - pmouseY;
+  if((ballX+(ballSize/2) > mouseX - (racketWidth/2)) && (ballX-(ballSize/2) < mouseX + (racketWidth/2))) {
+    if (dist(ballX, ballY, ballX, mouseY)<=(ballSize/2)+abs(overhead)) {
+      makeBounceBottom(mouseY);
+      // racket moving up
+      if (overhead<0) {
+        ballY += overhead;
+        ballSpeedVert += overhead;
+      }
+    }
+  }
+}
 
 
 
